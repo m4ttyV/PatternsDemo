@@ -189,7 +189,6 @@ namespace PatternsDemo.Patterns
             var squat = new Exercise("Приседания");
             var bench = new Exercise("Жим лёжа");
             var deadlift = new Exercise("Становая тяга");
-
             manager.Execute(new AddExerciseCommand(list, squat));
             manager.Execute(new AddExerciseCommand(list, bench));
             list.Print();

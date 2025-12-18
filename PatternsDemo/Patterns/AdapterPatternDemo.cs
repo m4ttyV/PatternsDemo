@@ -8,21 +8,21 @@ namespace PatternsDemo.Patterns
 {
     public class AdapterPatternDemo
     {
-        // Target interface 
+        // Target interface
         public interface IExerciseSource
         {
             List<string> GetExercises();
         }
-
-        // Adaptee #1
+        // Adaptee #1 (личный список)
         public class PersonalExerciseList
         {
-            private List<string> items = new List<string>
+            private List<string> items = new()
         {
-            "Отжимания",
-            "Приседания",
-            "Планка"
+            "Приседания (любимое) [9/10]",
+            "Отжимания (дом) [8/10]",
+            "Планка (реабилитация) [7/10]"
         };
+
 
             public List<string> GetRawPersonalItems()
             {
@@ -30,10 +30,10 @@ namespace PatternsDemo.Patterns
             }
         }
 
-        // Adaptee #2
+        // Adaptee #2 (общий список)
         public class CommonExerciseList
         {
-            private List<string> items = new List<string>
+            private List<string> items = new()
         {
             "Жим лёжа",
             "Становая тяга",
@@ -58,76 +58,86 @@ namespace PatternsDemo.Patterns
 
             public List<string> GetExercises()
             {
-                // Адаптация интерфейса
-                return personalList.GetRawPersonalItems();
+                var result = new List<string>();
+
+                foreach (var raw in personalList.GetRawPersonalItems())
+                {
+                    var clean = raw.Split('(')[0].Trim();
+                    result.Add(clean);
+                }
+
+                return result;
             }
         }
 
         // Adapter #2
         public class CommonListAdapter : IExerciseSource
         {
-            private CommonExerciseList commonListSource;
+            private CommonExerciseList commonList;
 
-            public CommonListAdapter(CommonExerciseList commonListSource)
+            public CommonListAdapter(CommonExerciseList commonList)
             {
-                this.commonListSource = commonListSource;
+                this.commonList = commonList;
             }
 
             public List<string> GetExercises()
             {
-                // Адаптация интерфейса
-                return commonListSource.GetRawCommonItems();
+                return commonList.GetRawCommonItems();
             }
         }
 
-        // Client (Gym)
+        // Client
         public class Gym
         {
-            private IExerciseSource personalListSource;
-            private IExerciseSource commonListSource;
+            private IExerciseSource personalSource;
+            private IExerciseSource commonSource;
 
             public Gym(
-                IExerciseSource personalListSource,
-                IExerciseSource commonListSource)
+                IExerciseSource personalSource,
+                IExerciseSource commonSource)
             {
-                this.personalListSource = personalListSource;
-                this.commonListSource = commonListSource;
+                this.personalSource = personalSource;
+                this.commonSource = commonSource;
             }
 
-            public void GetAllExercises()
+            public void PrintAllExercises()
             {
-                Console.WriteLine("Персональные упражнения:");
-                PrintExercises(personalListSource.GetExercises());
+                Console.WriteLine("Итоговый список упражнений:\n");
 
-                Console.WriteLine("\nОбщие упражнения:");
-                PrintExercises(commonListSource.GetExercises());
-            }
+                foreach (var ex in personalSource.GetExercises())
+                    Console.WriteLine($"- {ex}");
 
-            private void PrintExercises(List<string> exercises)
-            {
-                foreach (var exercise in exercises)
-                {
-                    Console.WriteLine($"- {exercise}");
-                }
+                foreach (var ex in commonSource.GetExercises())
+                    Console.WriteLine($"- {ex}");
             }
         }
+         
         public static void AdapterMain()
         {
             // Adaptee
             var personalList = new PersonalExerciseList();
+            var rawPersonalList = personalList.GetRawPersonalItems();
             var commonList = new CommonExerciseList();
-
+            Console.WriteLine("Исходный список личных успражнений");
+            for (int i = 0; i < rawPersonalList.Count; i++)
+            {
+                Console.WriteLine(rawPersonalList[i]);
+            }
+            var rawCommonList = commonList.GetRawCommonItems();
+            Console.WriteLine("Исходный список общих успражнений");
+            for (int i = 0; i < rawCommonList.Count; i++)
+            {
+                Console.WriteLine(rawCommonList[i]);
+            }
             // Adapters
             IExerciseSource personalAdapter =
-                new PersonalListAdapter(personalList);
-
+                new PersonalListAdapter(personalList); 
             IExerciseSource commonAdapter =
                 new CommonListAdapter(commonList);
-
             // Client
             var gym = new Gym(personalAdapter, commonAdapter);
 
-            gym.GetAllExercises();
+            gym.PrintAllExercises();
         }
     }
 }

@@ -16,14 +16,14 @@ namespace PatternsDemo
                 switch (choice)
                 {
                     case "1":
-                        Console.Clear();
+                        Console.Clear();  //надо сделать более наглядно(продемоснтрировать конкретную работу адаптера)
                         AdapterMain();
                         finished = true;
                         Console.WriteLine("Нажмите Enter чтобы продолжить...");
                         break;
 
                     case "2":
-                        Console.Clear();
+                        Console.Clear(); // добавить коментарии действий
                         CommandMain();
                         finished = true;
                         Console.WriteLine("Нажмите Enter чтобы продолжить...");
