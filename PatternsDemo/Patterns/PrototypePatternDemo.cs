@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PatternsDemo
+namespace PatternsDemo.Patterns
 {
     public class PrototypePatternDemo
     {
@@ -73,10 +73,10 @@ namespace PatternsDemo
             {
                 return new ExerciseParameters
                 {
-                    Reps = this.Reps,
-                    Sets = this.Sets,
-                    Duration = this.Duration,
-                    LoadStrategy = this.LoadStrategy.Clone()
+                    Reps = Reps,
+                    Sets = Sets,
+                    Duration = Duration,
+                    LoadStrategy = LoadStrategy.Clone()
                 };
             }
         }
@@ -91,8 +91,8 @@ namespace PatternsDemo
             {
                 return new Exercise
                 {
-                    Name = this.Name,
-                    Parameters = this.Parameters.Clone()
+                    Name = Name,
+                    Parameters = Parameters.Clone()
                 };
             }
         }
@@ -109,8 +109,8 @@ namespace PatternsDemo
             {
                 var clone = new TrainingPlan
                 {
-                    Name = this.Name,
-                    Description = this.Description
+                    Name = Name,
+                    Description = Description
                 };
 
                 foreach (var ex in Exercises)

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using PatternsDemo.Patterns;
+using System;
 using System.Collections.Generic;
-using static PatternsDemo.CommandPatternDemo;
+using static PatternsDemo.Patterns.CommandPatternDemo;
 
 namespace PatternsDemo
 {
