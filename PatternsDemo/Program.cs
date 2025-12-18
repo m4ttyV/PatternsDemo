@@ -1,7 +1,6 @@
-﻿using PatternsDemo.Patterns;
-using System;
-using System.Collections.Generic;
-using static PatternsDemo.Patterns.CommandPatternDemo;
+﻿using static PatternsDemo.Patterns.CommandPatternDemo;
+using static PatternsDemo.Patterns.AdapterPatternDemo;
+using static PatternsDemo.Patterns.PrototypePatternDemo;
 
 namespace PatternsDemo
 {
@@ -18,21 +17,21 @@ namespace PatternsDemo
                 {
                     case "1":
                         Console.Clear();
-                        AdapterPatternDemo.AdapterMain();
+                        AdapterMain();
                         finished = true;
                         Console.WriteLine("Нажмите Enter чтобы продолжить...");
                         break;
 
                     case "2":
                         Console.Clear();
-                        CommandPatternDemo.CommandMain();
+                        CommandMain();
                         finished = true;
                         Console.WriteLine("Нажмите Enter чтобы продолжить...");
                         break;
 
                     case "3":
                         Console.Clear();
-                        PrototypePatternDemo.PrototypeMain();
+                        PrototypeMain();
                         finished = true;
                         Console.WriteLine("Нажмите Enter чтобы продолжить...");
                         break;
